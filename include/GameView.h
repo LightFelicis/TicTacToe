@@ -4,19 +4,23 @@
 /*
 Class GameView
 Manages communication with a player.
-Displayes messages with
+Manages visualisation of current game state:
 	-statistics about previous games,
 	-current board state,
 	-rules of tic-tac-toe.
 Gets information about chosen square to mark from player.
 */
 
- 
+
 class GameView
 {
 public:
 	GameView();
 	~GameView();
+	/*
+	Method ClearView removes all visualisations of current state.
+	*/
+	void ClearView();
 	/*
 	Method ShowBoard generates a picture of 9 squares filled with marks:
 	'o', 'x', ' ',
@@ -58,6 +62,5 @@ public:
 	(for example from outside the board) the program stops.
 	*/
 	std::pair <int, int> MoveQuery();
-	
 };
 

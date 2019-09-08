@@ -1,15 +1,13 @@
-#include "pch.h"
 #include "Logic.h"
 #include <iostream>
 #include "Board.h"
 #include "GameView.h"
 #include "PlatformDependent.h"
-#include <windows.h>
+
 void Logic::Start()
 {
-	PlatformDependent Dep;
 	std::vector<int>Stats;
-	Stats = Dep.ReadFile();
+	Stats = PlatformDependent::ReadFile();
 	if (Stats.size() == 0) {
 		Stats = { 0, 0 };
 	}
@@ -21,7 +19,7 @@ void Logic::Start()
 	int WhoseMove = PlayedGamesCount % 2;
 	while (GameBoard.IsDone() == -1) {
 
-		Dep.MyClear();
+		CurrentGameView.ClearView();
 		CurrentGameView.ShowRules();
 		CurrentGameView.ShowStats(WonGamesCount, PlayedGamesCount);
 		CurrentGameView.ShowBoard(GameBoard.GetGrid());
@@ -30,14 +28,14 @@ void Logic::Start()
 			PlayersMove('o');
 		}
 		else {
-			RobotsMove('x'); 
+			RobotsMove('x');
 		}
 		WhoseMove++;
 		WhoseMove %= 2;
 	}
-	
-	
-	Dep.MyClear();
+
+
+	CurrentGameView.ClearView();
 	CurrentGameView.ShowRules();
 	CurrentGameView.ShowStats(WonGamesCount, PlayedGamesCount);
 	CurrentGameView.ShowBoard(GameBoard.GetGrid());
@@ -45,19 +43,19 @@ void Logic::Start()
 	PlayedGamesCount++;
 	Stats[1] = PlayedGamesCount;
 	if (GameBoard.IsDone() == 1) {
-		Dep.MySound1();
+		PlatformDependent::Sound1();
 		WonGamesCount++;
 		Stats[0] = WonGamesCount;
-		Dep.WriteFile(Stats);
+		PlatformDependent::WriteFile(Stats);
 		CurrentGameView.ShowResult(true);
-		
+
 	}
 	else {
-		Dep.MySound2();
-		Dep.WriteFile(Stats);
+		PlatformDependent::Sound2();
+		PlatformDependent::WriteFile(Stats);
 		CurrentGameView.ShowResult(false);
 	}
-	
+
 }
 
 Logic::Logic()

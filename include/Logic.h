@@ -23,7 +23,7 @@ public:
 	void Start();
 	Logic();
 	~Logic();
-private: 
+private:
 	int WonGamesCount;
 	int PlayedGamesCount;
 	/*

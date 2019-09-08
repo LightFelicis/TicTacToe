@@ -1,7 +1,8 @@
-#include "pch.h"
 #include "Board.h"
+
 #include <cassert>
 #include <iostream>
+
 Board::Board()
 {
 	Grid.resize(3, std::vector<char>(3, ' '));
@@ -11,6 +12,7 @@ Board::Board()
 Board::~Board()
 {
 }
+
 bool Board::IsFree(std::pair<int, int> Coords) const
 {
 	return Grid[Coords.first][Coords.second] == ' ';
@@ -29,10 +31,10 @@ const std::vector<std::vector<char>> &Board::GetGrid()
 }
 
 int Board::IsDone() const
-{	
+{
 	for (int Column = 0; Column < 3; Column++) {
 		char Mark = Grid[Column][0];
-		int OccurenceCounter = 0; 
+		int OccurenceCounter = 0;
 		for (int Row = 0; Row < 3; Row++) {
 			if (Grid[Column][Row] == Mark) {
 				OccurenceCounter++;
@@ -64,7 +66,7 @@ int Board::IsDone() const
 			}
 		}
 	}
-	{	
+	{
 		char Mark = Grid[0][0];
 		int OccurenceCounter = 0;
 		for (int Row = 0; Row < 3; Row++) {
@@ -101,7 +103,7 @@ int Board::IsDone() const
 	for (int Column = 0; Column < 3; Column++) {
 		for (int Row = 0; Row < 3; Row++) {
 			if (IsFree({ Column, Row })) {
-				return -1; 
+				return -1;
 			}
 		}
 	}
